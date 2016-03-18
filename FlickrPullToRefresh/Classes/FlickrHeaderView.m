@@ -18,6 +18,8 @@ const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
 @private
     CALayer *_imageLayer;
     FlickrProgressLayer *_progressLayer;
+    UIActivityIndicatorView *_waitingView;
+    
     BOOL _animating;
     BOOL _shouldFinishAnimation;
     BOOL _point1Checked;
@@ -48,6 +50,10 @@ const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
         _imageLayer.masksToBounds = YES;
         _imageLayer.backgroundColor = [UIColor colorWithRed:0.96 green:0.12 blue:0.48 alpha:1].CGColor;
         [self.layer addSublayer:_imageLayer];
+        
+        _waitingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        _waitingView.layer.position = CGPointMake(avatarSize / 2, avatarSize / 2);
+        [_imageLayer addSublayer:_waitingView.layer];
     }
     return self;
 }
@@ -200,6 +206,7 @@ const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
     _imageLayer.contents = nil;
+    [_waitingView startAnimating];
     [CATransaction commit];
 }
 
@@ -211,6 +218,7 @@ const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
         [CATransaction begin];
         [CATransaction setDisableActions:YES];
         _imageLayer.contents = (id)_image.CGImage;
+        [_waitingView stopAnimating];
         [CATransaction commit];
     }
 }
