@@ -20,6 +20,10 @@ const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
     FlickrProgressLayer *_progressLayer;
     BOOL _animating;
     BOOL _shouldFinishAnimation;
+    BOOL _point1Checked;
+    BOOL _point2Checked;
+    BOOL _oneceMore;
+    
     FlickrHeaderViewTriggerLoadBlock _loadBlock;
     FlickrHeaderViewLoadFinishBlock _finishBlock;
 }
@@ -65,7 +69,10 @@ const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
 - (void)setImage:(UIImage *)image
 {
     _image = image;
-    _imageLayer.contents = (id)_image.CGImage;
+    if (!_animating)
+    {
+        _imageLayer.contents = (id)_image.CGImage;
+    }
 }
 
 - (float)progress
@@ -86,6 +93,10 @@ const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
 - (void)setFinishLoad
 {
     _shouldFinishAnimation = YES;
+    if (_point2Checked)
+    {
+        _oneceMore = YES;
+    }
 }
 
 - (void)startLoadingAnimation
@@ -105,8 +116,8 @@ const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
     
     CAKeyframeAnimation *scale1 = [CAKeyframeAnimation animation];
     scale1.keyPath = @"transform.scale";
-    scale1.values = @[@1, @0.4, @1];
-    scale1.keyTimes = @[@0,@(1.0/2),@1];
+    scale1.values = @[@1, @0.4, @0.6, @1];
+    scale1.keyTimes = @[@0,@(1.0/2),@(3.0/4),@1];
     
     CAKeyframeAnimation *move1 = [CAKeyframeAnimation animation];
     move1.keyPath = @"position.x";
@@ -142,12 +153,13 @@ const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
     
     [CATransaction begin];
     [CATransaction setCompletionBlock:^{
-        if (_shouldFinishAnimation)
+        if (_shouldFinishAnimation && !_oneceMore)
         {
             [self finishLoadingAnimation];
         }
         else
         {
+            _oneceMore = NO;
             [self startLoadingAnimation];
         }
     }];
@@ -155,6 +167,15 @@ const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
     [_progressLayer addAnimation:group2 forKey:@"loading"];
     [CATransaction commit];
     _animating = YES;
+    
+    _point1Checked = NO;
+    _point2Checked = NO;
+    
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:FlickrRefreshAnimationDuration * 0.22 target:self selector:@selector(stepPoint1) userInfo:nil repeats:NO];
+    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    
+    timer = [NSTimer scheduledTimerWithTimeInterval:FlickrRefreshAnimationDuration * 0.748 target:self selector:@selector(stepPoint2) userInfo:nil repeats:NO];
+    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
 
 - (void)finishLoadingAnimation
@@ -170,6 +191,27 @@ const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
     if (_finishBlock)
     {
         _finishBlock();
+    }
+}
+
+- (void)stepPoint1
+{
+    _point1Checked = YES;
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    _imageLayer.contents = nil;
+    [CATransaction commit];
+}
+
+- (void)stepPoint2
+{
+    _point2Checked = YES;
+    if (_shouldFinishAnimation)
+    {
+        [CATransaction begin];
+        [CATransaction setDisableActions:YES];
+        _imageLayer.contents = (id)_image.CGImage;
+        [CATransaction commit];
     }
 }
 

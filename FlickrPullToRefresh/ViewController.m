@@ -48,7 +48,8 @@
 
 - (void)startLoading
 {
-    [_headerView performSelector:@selector(setFinishLoad) withObject:nil afterDelay:3];
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:_headerView selector:@selector(setFinishLoad) userInfo:nil repeats:NO];
+    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
 
 - (void)finishLoad
