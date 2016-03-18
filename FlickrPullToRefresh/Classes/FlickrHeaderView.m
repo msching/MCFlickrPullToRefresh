@@ -29,6 +29,7 @@ const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
     FlickrHeaderViewTriggerLoadBlock _loadBlock;
     FlickrHeaderViewLoadFinishBlock _finishBlock;
 }
+@property (nonatomic,assign,readonly) float progress;
 @end
 
 @implementation FlickrHeaderView

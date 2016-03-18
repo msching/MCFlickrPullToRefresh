@@ -48,13 +48,20 @@
 
 - (void)startLoading
 {
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:_headerView selector:@selector(setFinishLoad) userInfo:nil repeats:NO];
+    NSLog(@"start loading data...");
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(loadDataFinished) userInfo:nil repeats:NO];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+}
+
+- (void)loadDataFinished
+{
+    NSLog(@"load data finsihed.");
+    [_headerView setFinishLoad];
 }
 
 - (void)finishLoad
 {
-
+    NSLog(@"animation finished.");
 }
 
 #pragma mark - tableView datasource

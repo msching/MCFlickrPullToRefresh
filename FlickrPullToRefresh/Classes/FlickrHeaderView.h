@@ -14,11 +14,32 @@ FOUNDATION_EXTERN const NSTimeInterval FlickrRefreshAnimationDuration;
 
 @interface FlickrHeaderView : UIView
 
+/**
+ *  avatar image
+ */
 @property (nonatomic,strong) UIImage *image;
-@property (nonatomic,assign,readonly) float progress;
+
+/**
+ *  binded scrollview.
+ */
 @property (nonatomic,weak) UIScrollView *scrollView;
 
+/**
+ *  callback when animation is about to start
+ *
+ *  @param triggerLoadBlock callback, return YES if animation should start, NO if should not.
+ */
 - (void)setTriggerLoadBlock:(FlickrHeaderViewTriggerLoadBlock)triggerLoadBlock;
+
+/**
+ *  callback when animation finished. (after -setFinishLoad is called)
+ *
+ *  @param loadFinishBlock callback.
+ */
 - (void)setLoadFinishBlock:(FlickrHeaderViewLoadFinishBlock)loadFinishBlock;
+
+/**
+ *  should call when loading data finished. After calling this function, the animation will end after finish current loop.
+ */
 - (void)setFinishLoad;
 @end
