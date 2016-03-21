@@ -22,7 +22,6 @@
     
     __weak typeof(self)weakSelf = self;
     _headerView = [[FlickrHeaderView alloc] initWithFrame:CGRectMake(0, 0, 0, 200)];
-    _headerView.image = [UIImage imageNamed:@"avatar"];
     _headerView.scrollView = self.tableView;
     [_headerView setTriggerLoadBlock:^BOOL{
         __strong __typeof(weakSelf)strongSelf = weakSelf;
@@ -33,6 +32,7 @@
         __strong __typeof(weakSelf)strongSelf = weakSelf;
         [strongSelf finishLoad];
     }];
+    [self reset];
     self.tableView.tableHeaderView = _headerView;
     
     UIView *backgroundView = [[UIView alloc] init];
@@ -44,6 +44,12 @@
 {
     [super viewDidLoad];
     self.title = @"FlickrRefresh";
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"reset" style:UIBarButtonItemStylePlain target:self action:@selector(reset)];
+}
+
+- (void)reset
+{
+    _headerView.image = [UIImage imageNamed:@"1.gif"];
 }
 
 - (void)startLoading
@@ -56,6 +62,7 @@
 - (void)loadDataFinished
 {
     NSLog(@"load data finsihed.");
+    _headerView.image = [UIImage imageNamed:@"avatar"];
     [_headerView setFinishLoad];
 }
 

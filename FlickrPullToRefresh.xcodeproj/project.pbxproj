@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE7CAF2D1C9FA18D007857BA /* 1.gif in Resources */ = {isa = PBXBuildFile; fileRef = DE7CAF2C1C9FA18D007857BA /* 1.gif */; };
 		DE8387491C9A772100D5E58A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8387481C9A772100D5E58A /* main.m */; };
 		DE83874C1C9A772100D5E58A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DE83874B1C9A772100D5E58A /* AppDelegate.m */; };
 		DE83874E1C9A772100D5E58A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE83874D1C9A772100D5E58A /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DE7CAF2C1C9FA18D007857BA /* 1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 1.gif; sourceTree = "<group>"; };
 		DE8387441C9A772100D5E58A /* FlickrPullToRefresh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickrPullToRefresh.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE8387481C9A772100D5E58A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DE83874A1C9A772100D5E58A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 				DE83875C1C9A77FD00D5E58A /* ViewController.m */,
 				DE83874D1C9A772100D5E58A /* Assets.xcassets */,
 				DE83874F1C9A772100D5E58A /* LaunchScreen.storyboard */,
+				DE7CAF2C1C9FA18D007857BA /* 1.gif */,
 				DE8387641C9A860500D5E58A /* avatar.png */,
 				DE8387521C9A772100D5E58A /* Info.plist */,
 				DE8387471C9A772100D5E58A /* Supporting Files */,
@@ -156,6 +159,7 @@
 			files = (
 				DE8387651C9A860500D5E58A /* avatar.png in Resources */,
 				DE83874E1C9A772100D5E58A /* Assets.xcassets in Resources */,
+				DE7CAF2D1C9FA18D007857BA /* 1.gif in Resources */,
 				DE8387511C9A772100D5E58A /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
