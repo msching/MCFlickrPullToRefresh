@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DE7CAF2D1C9FA18D007857BA /* 1.gif in Resources */ = {isa = PBXBuildFile; fileRef = DE7CAF2C1C9FA18D007857BA /* 1.gif */; };
+		DE7CAF391C9FF893007857BA /* FlickrProgressCallbackLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = DE7CAF381C9FF893007857BA /* FlickrProgressCallbackLayer.m */; };
 		DE8387491C9A772100D5E58A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8387481C9A772100D5E58A /* main.m */; };
 		DE83874C1C9A772100D5E58A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DE83874B1C9A772100D5E58A /* AppDelegate.m */; };
 		DE83874E1C9A772100D5E58A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE83874D1C9A772100D5E58A /* Assets.xcassets */; };
@@ -15,11 +16,13 @@
 		DE83875D1C9A77FD00D5E58A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE83875C1C9A77FD00D5E58A /* ViewController.m */; };
 		DE8387651C9A860500D5E58A /* avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = DE8387641C9A860500D5E58A /* avatar.png */; };
 		DE83877B1C9AA63300D5E58A /* FlickrHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8387761C9AA63300D5E58A /* FlickrHeaderView.m */; };
-		DE83877C1C9AA63300D5E58A /* FlickrProgressLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8387781C9AA63300D5E58A /* FlickrProgressLayer.m */; };
+		DE83877C1C9AA63300D5E58A /* FlickrDragIndicateLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8387781C9AA63300D5E58A /* FlickrDragIndicateLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DE7CAF2C1C9FA18D007857BA /* 1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 1.gif; sourceTree = "<group>"; };
+		DE7CAF371C9FF893007857BA /* FlickrProgressCallbackLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrProgressCallbackLayer.h; sourceTree = "<group>"; };
+		DE7CAF381C9FF893007857BA /* FlickrProgressCallbackLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrProgressCallbackLayer.m; sourceTree = "<group>"; };
 		DE8387441C9A772100D5E58A /* FlickrPullToRefresh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickrPullToRefresh.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE8387481C9A772100D5E58A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DE83874A1C9A772100D5E58A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -32,8 +35,8 @@
 		DE8387641C9A860500D5E58A /* avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avatar.png; sourceTree = "<group>"; };
 		DE8387751C9AA63300D5E58A /* FlickrHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrHeaderView.h; sourceTree = "<group>"; };
 		DE8387761C9AA63300D5E58A /* FlickrHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrHeaderView.m; sourceTree = "<group>"; };
-		DE8387771C9AA63300D5E58A /* FlickrProgressLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrProgressLayer.h; sourceTree = "<group>"; };
-		DE8387781C9AA63300D5E58A /* FlickrProgressLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrProgressLayer.m; sourceTree = "<group>"; };
+		DE8387771C9AA63300D5E58A /* FlickrDragIndicateLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrDragIndicateLayer.h; sourceTree = "<group>"; };
+		DE8387781C9AA63300D5E58A /* FlickrDragIndicateLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrDragIndicateLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,8 +97,10 @@
 			children = (
 				DE8387751C9AA63300D5E58A /* FlickrHeaderView.h */,
 				DE8387761C9AA63300D5E58A /* FlickrHeaderView.m */,
-				DE8387771C9AA63300D5E58A /* FlickrProgressLayer.h */,
-				DE8387781C9AA63300D5E58A /* FlickrProgressLayer.m */,
+				DE8387771C9AA63300D5E58A /* FlickrDragIndicateLayer.h */,
+				DE8387781C9AA63300D5E58A /* FlickrDragIndicateLayer.m */,
+				DE7CAF371C9FF893007857BA /* FlickrProgressCallbackLayer.h */,
+				DE7CAF381C9FF893007857BA /* FlickrProgressCallbackLayer.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -171,8 +176,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE83877C1C9AA63300D5E58A /* FlickrProgressLayer.m in Sources */,
+				DE83877C1C9AA63300D5E58A /* FlickrDragIndicateLayer.m in Sources */,
 				DE83877B1C9AA63300D5E58A /* FlickrHeaderView.m in Sources */,
+				DE7CAF391C9FF893007857BA /* FlickrProgressCallbackLayer.m in Sources */,
 				DE83875D1C9A77FD00D5E58A /* ViewController.m in Sources */,
 				DE83874C1C9A772100D5E58A /* AppDelegate.m in Sources */,
 				DE8387491C9A772100D5E58A /* main.m in Sources */,

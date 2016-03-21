@@ -1,5 +1,5 @@
 //
-//  FlickrProgressLayer.h
+//  FlickrDragIndicateLayer.h
 //  FlickrPullToRefresh
 //
 //  Created by Chengyin on 16/3/17.
@@ -9,7 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <UIKit/UIKit.h>
 
-@interface FlickrProgressLayer : CALayer
+@interface FlickrDragIndicateLayer : CALayer
 
 @property (nonatomic,assign) float progress;
 @property (nonatomic,strong) UIColor *fillColor;

@@ -7,17 +7,19 @@
 //
 
 #import "FlickrHeaderView.h"
-#import "FlickrProgressLayer.h"
+#import "FlickrDragIndicateLayer.h"
+#import "FlickrProgressCallbackLayer.h"
 
 static const CGFloat avatarSize = 50;
 static const CGFloat progressSize = 60;
 const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
 
-@interface FlickrHeaderView ()
+@interface FlickrHeaderView ()<FlickrProgressCallbackDelegate>
 {
 @private
     CALayer *_imageLayer;
-    FlickrProgressLayer *_progressLayer;
+    FlickrDragIndicateLayer *_dragIndicateLayer;
+    FlickrProgressCallbackLayer *_callbackLayer;
     UIActivityIndicatorView *_waitingView;
     
     BOOL _animating;
@@ -38,9 +40,9 @@ const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
     self = [super initWithFrame:frame];
     if (self)
     {
-        _progressLayer = [[FlickrProgressLayer alloc] init];
-        _progressLayer.bounds = CGRectMake(0, 0, progressSize, progressSize);
-        [self.layer addSublayer:_progressLayer];
+        _dragIndicateLayer = [[FlickrDragIndicateLayer alloc] init];
+        _dragIndicateLayer.bounds = CGRectMake(0, 0, progressSize, progressSize);
+        [self.layer addSublayer:_dragIndicateLayer];
         
         _imageLayer = [CALayer layer];
         _imageLayer.bounds = CGRectMake(0, 0, avatarSize, avatarSize);
@@ -55,6 +57,11 @@ const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
         _waitingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         _waitingView.layer.position = CGPointMake(avatarSize / 2, avatarSize / 2);
         [_imageLayer addSublayer:_waitingView.layer];
+        
+        _callbackLayer = [[FlickrProgressCallbackLayer alloc] init];
+        _callbackLayer.callbackDelegate = self;
+        _callbackLayer.frame = CGRectMake(0, -1, 1, 1);
+        [self.layer addSublayer:_callbackLayer];
     }
     return self;
 }
@@ -70,7 +77,7 @@ const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
     [super layoutSubviews];
     
     _imageLayer.position = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
-    _progressLayer.position = _imageLayer.position;
+    _dragIndicateLayer.position = _imageLayer.position;
 }
 
 - (void)setImage:(UIImage *)image
@@ -84,7 +91,7 @@ const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
 
 - (float)progress
 {
-    return _progressLayer.progress;
+    return _dragIndicateLayer.progress;
 }
 
 - (void)setTriggerLoadBlock:(FlickrHeaderViewTriggerLoadBlock)triggerLoadBlock
@@ -108,10 +115,10 @@ const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
 
 - (void)startLoadingAnimation
 {
-    [_progressLayer removeAllAnimations];
+    [_dragIndicateLayer removeAllAnimations];
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
-    _progressLayer.progress = 1;
+    _dragIndicateLayer.progress = 1;
     [CATransaction commit];
     
     CGFloat offset = 40;
@@ -158,6 +165,14 @@ const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
     group2.removedOnCompletion = NO;
     group2.timingFunction = group1.timingFunction;
     
+    CABasicAnimation *progress = [CABasicAnimation animationWithKeyPath:@"progress"];
+    progress.duration = group1.duration;
+    progress.fromValue = @0;
+    progress.toValue = @1;
+    progress.fillMode = kCAFillModeForwards;
+    progress.removedOnCompletion = NO;
+    progress.timingFunction = group1.timingFunction;
+    
     [CATransaction begin];
     [CATransaction setCompletionBlock:^{
         if (_shouldFinishAnimation && !_oneceMore)
@@ -171,33 +186,43 @@ const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
         }
     }];
     [_imageLayer addAnimation:group1 forKey:@"loading"];
-    [_progressLayer addAnimation:group2 forKey:@"loading"];
+    [_dragIndicateLayer addAnimation:group2 forKey:@"loading"];
+    [_callbackLayer addAnimation:progress forKey:@"progress"];
     [CATransaction commit];
     _animating = YES;
     
     _point1Checked = NO;
     _point2Checked = NO;
-    
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:FlickrRefreshAnimationDuration * 0.22 target:self selector:@selector(stepPoint1) userInfo:nil repeats:NO];
-    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
-    
-    timer = [NSTimer scheduledTimerWithTimeInterval:FlickrRefreshAnimationDuration * 0.748 target:self selector:@selector(stepPoint2) userInfo:nil repeats:NO];
-    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
 
 - (void)finishLoadingAnimation
 {
-    [_progressLayer removeFromSuperlayer];
-    [_progressLayer removeAllAnimations];
-    _progressLayer.progress = 0;
-    [_progressLayer setNeedsDisplay];
-    [_progressLayer displayIfNeeded];
-    [_progressLayer setValue:@(1) forKeyPath:@"transform.scale"];
+    [_dragIndicateLayer removeFromSuperlayer];
+    [_dragIndicateLayer removeAllAnimations];
+    _dragIndicateLayer.progress = 0;
+    [_dragIndicateLayer setNeedsDisplay];
+    [_dragIndicateLayer displayIfNeeded];
+    [_dragIndicateLayer setValue:@(1) forKeyPath:@"transform.scale"];
+    [_callbackLayer removeAllAnimations];
+    _callbackLayer.progress = 0;
     _animating = NO;
     _shouldFinishAnimation = NO;
     if (_finishBlock)
     {
         _finishBlock();
+    }
+}
+
+- (void)progressUpdatedTo:(float)progress
+{
+    if (!_point1Checked && progress > 0.24)
+    {
+        [self stepPoint1];
+    }
+    
+    if (!_point2Checked && progress > 0.74)
+    {
+        [self stepPoint2];
     }
 }
 
@@ -253,9 +278,9 @@ const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
     {
         if ([keyPath isEqualToString:@"contentOffset"])
         {
-            if (!_progressLayer.superlayer)
+            if (!_dragIndicateLayer.superlayer)
             {
-                [self.layer addSublayer:_progressLayer];
+                [self.layer addSublayer:_dragIndicateLayer];
             }
             NSValue *value = change[NSKeyValueChangeNewKey];
             CGPoint contentOffset = [value CGPointValue];
@@ -264,14 +289,14 @@ const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
             {
                 CGFloat startLoadingThreshold = 60.0;
                 CGFloat fractionDragged = -offset/startLoadingThreshold;
-                _progressLayer.progress = MIN(MAX(0.0, fractionDragged),1);
+                _dragIndicateLayer.progress = MIN(MAX(0.0, fractionDragged),1);
             }
         }
         else if ([keyPath isEqualToString:@"pan.state"])
         {
             NSNumber *number = change[NSKeyValueChangeNewKey];
             UIGestureRecognizerState state = [number integerValue];
-            if (_progressLayer.progress >= 1.0 && state == UIGestureRecognizerStateEnded)
+            if (_dragIndicateLayer.progress >= 1.0 && state == UIGestureRecognizerStateEnded)
             {
                 if (!_animating && _loadBlock)
                 {

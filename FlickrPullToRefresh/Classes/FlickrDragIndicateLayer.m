@@ -1,14 +1,30 @@
 //
-//  FlickrProgressLayer.m
+//  FlickrDragIndicateLayer.m
 //  FlickrPullToRefresh
 //
 //  Created by Chengyin on 16/3/17.
 //  Copyright © 2016年 Chengyin. All rights reserved.
 //
 
-#import "FlickrProgressLayer.h"
+#import "FlickrDragIndicateLayer.h"
 
-@implementation FlickrProgressLayer
+@implementation FlickrDragIndicateLayer
+
+- (id)initWithLayer:(id)layer
+{
+    self = [super initWithLayer:layer];
+    if (self)
+    {
+        if ([layer isKindOfClass:[FlickrDragIndicateLayer class]])
+        {
+            FlickrDragIndicateLayer *otherLayer = (FlickrDragIndicateLayer *)layer;
+            self.progress = otherLayer.progress;
+            self.fillColor = otherLayer.fillColor;
+        }
+    }
+    return self;
+}
+
 
 - (instancetype)init
 {
