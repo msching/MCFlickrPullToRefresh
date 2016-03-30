@@ -1,6 +1,6 @@
 //
-//  FlickrHeaderView.h
-//  FlickrPullToRefresh
+//  MCFlickrHeaderView.h
+//  MCFlickrPullToRefresh
 //
 //  Created by Chengyin on 16/3/17.
 //  Copyright © 2016年 Chengyin. All rights reserved.
@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-typedef BOOL (^FlickrHeaderViewTriggerLoadBlock)(void);
-typedef void (^FlickrHeaderViewLoadFinishBlock)(void);
-FOUNDATION_EXTERN const NSTimeInterval FlickrRefreshAnimationDuration;
+typedef BOOL (^MCFlickrHeaderViewTriggerLoadBlock)(void);
+typedef void (^MCFlickrHeaderViewLoadFinishBlock)(void);
+FOUNDATION_EXTERN const NSTimeInterval MCFlickrRefreshAnimationDuration;
 
-@interface FlickrHeaderView : UIView
+@interface MCFlickrHeaderView : UIView
 
 /**
  *  avatar image
@@ -29,14 +29,14 @@ FOUNDATION_EXTERN const NSTimeInterval FlickrRefreshAnimationDuration;
  *
  *  @param triggerLoadBlock callback, return YES if animation should start, NO if should not.
  */
-- (void)setTriggerLoadBlock:(FlickrHeaderViewTriggerLoadBlock)triggerLoadBlock;
+- (void)setTriggerLoadBlock:(MCFlickrHeaderViewTriggerLoadBlock)triggerLoadBlock;
 
 /**
  *  callback when animation finished. (after -setFinishLoad is called)
  *
  *  @param loadFinishBlock callback.
  */
-- (void)setLoadFinishBlock:(FlickrHeaderViewLoadFinishBlock)loadFinishBlock;
+- (void)setLoadFinishBlock:(MCFlickrHeaderViewLoadFinishBlock)loadFinishBlock;
 
 /**
  *  should call when loading data finished. After calling this function, the animation will end after finish current loop.

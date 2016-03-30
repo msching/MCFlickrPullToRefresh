@@ -7,12 +7,12 @@
 //
 
 #import "ViewController.h"
-#import "FlickrHeaderView.h"
+#import "MCFlickrHeaderView.h"
 
 @implementation ViewController
 {
     BOOL _loading;
-    FlickrHeaderView *_headerView;
+    MCFlickrHeaderView *_headerView;
 }
 
 #pragma mark - views
@@ -21,7 +21,7 @@
     [super loadView];
     
     __weak typeof(self)weakSelf = self;
-    _headerView = [[FlickrHeaderView alloc] initWithFrame:CGRectMake(0, 0, 0, 200)];
+    _headerView = [[MCFlickrHeaderView alloc] initWithFrame:CGRectMake(0, 0, 0, 200)];
     _headerView.scrollView = self.tableView;
     [_headerView setTriggerLoadBlock:^BOOL{
         __strong __typeof(weakSelf)strongSelf = weakSelf;

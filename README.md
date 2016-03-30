@@ -15,7 +15,7 @@
 
 ```objc
 __weak typeof(self)weakSelf = self;
-_headerView = [[FlickrHeaderView alloc] initWithFrame:CGRectMake(0, 0, 0, 200)];
+_headerView = [[MCFlickrHeaderView alloc] initWithFrame:CGRectMake(0, 0, 0, 200)];
 _headerView.image = [UIImage imageNamed:@"avatar"];
 _headerView.scrollView = self.tableView;
 [_headerView setTriggerLoadBlock:^BOOL{

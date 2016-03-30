@@ -1,25 +1,25 @@
 //
-//  FlickrHeaderView.m
-//  FlickrPullToRefresh
+//  MCFlickrHeaderView.m
+//  MCFlickrPullToRefresh
 //
 //  Created by Chengyin on 16/3/17.
 //  Copyright © 2016年 Chengyin. All rights reserved.
 //
 
-#import "FlickrHeaderView.h"
-#import "FlickrDragIndicateLayer.h"
-#import "FlickrProgressCallbackLayer.h"
+#import "MCFlickrHeaderView.h"
+#import "MCFlickrDragIndicateLayer.h"
+#import "MCFlickrProgressCallbackLayer.h"
 
 static const CGFloat avatarSize = 50;
 static const CGFloat progressSize = 60;
-const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
+const NSTimeInterval MCFlickrRefreshAnimationDuration = 2.5;
 
-@interface FlickrHeaderView ()<FlickrProgressCallbackDelegate>
+@interface MCFlickrHeaderView ()<MCFlickrProgressCallbackDelegate>
 {
 @private
     CALayer *_imageLayer;
-    FlickrDragIndicateLayer *_dragIndicateLayer;
-    FlickrProgressCallbackLayer *_callbackLayer;
+    MCFlickrDragIndicateLayer *_dragIndicateLayer;
+    MCFlickrProgressCallbackLayer *_callbackLayer;
     UIActivityIndicatorView *_waitingView;
     
     BOOL _animating;
@@ -28,19 +28,19 @@ const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
     BOOL _point2Checked;
     BOOL _oneceMore;
     
-    FlickrHeaderViewTriggerLoadBlock _loadBlock;
-    FlickrHeaderViewLoadFinishBlock _finishBlock;
+    MCFlickrHeaderViewTriggerLoadBlock _loadBlock;
+    MCFlickrHeaderViewLoadFinishBlock _finishBlock;
 }
 @property (nonatomic,assign,readonly) float progress;
 @end
 
-@implementation FlickrHeaderView
+@implementation MCFlickrHeaderView
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self)
     {
-        _dragIndicateLayer = [[FlickrDragIndicateLayer alloc] init];
+        _dragIndicateLayer = [[MCFlickrDragIndicateLayer alloc] init];
         _dragIndicateLayer.bounds = CGRectMake(0, 0, progressSize, progressSize);
         [self.layer addSublayer:_dragIndicateLayer];
         
@@ -58,7 +58,7 @@ const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
         _waitingView.layer.position = CGPointMake(avatarSize / 2, avatarSize / 2);
         [_imageLayer addSublayer:_waitingView.layer];
         
-        _callbackLayer = [[FlickrProgressCallbackLayer alloc] init];
+        _callbackLayer = [[MCFlickrProgressCallbackLayer alloc] init];
         _callbackLayer.callbackDelegate = self;
         _callbackLayer.frame = CGRectMake(0, -1, 1, 1);
         [self.layer addSublayer:_callbackLayer];
@@ -94,12 +94,12 @@ const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
     return _dragIndicateLayer.progress;
 }
 
-- (void)setTriggerLoadBlock:(FlickrHeaderViewTriggerLoadBlock)triggerLoadBlock
+- (void)setTriggerLoadBlock:(MCFlickrHeaderViewTriggerLoadBlock)triggerLoadBlock
 {
     _loadBlock = [triggerLoadBlock copy];
 }
 
-- (void)setLoadFinishBlock:(FlickrHeaderViewLoadFinishBlock)loadFinishBlock
+- (void)setLoadFinishBlock:(MCFlickrHeaderViewLoadFinishBlock)loadFinishBlock
 {
     _finishBlock = [loadFinishBlock copy];
 }
@@ -141,7 +141,7 @@ const NSTimeInterval FlickrRefreshAnimationDuration = 2.5;
     
     CAAnimationGroup *group1 = [[CAAnimationGroup alloc] init];
     group1.animations = @[zPosition,scale1,move1];
-    group1.duration = FlickrRefreshAnimationDuration;
+    group1.duration = MCFlickrRefreshAnimationDuration;
     if (!_animating)
     {
         group1.timingFunction = [CAMediaTimingFunction functionWithControlPoints: 0.500000 : 0.583333 : 0.433333 : 0.383333];

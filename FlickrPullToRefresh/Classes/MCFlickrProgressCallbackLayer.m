@@ -1,22 +1,22 @@
 //
-//  FlickrProgressCallbackLayer.m
-//  FlickrPullToRefresh
+//  MCFlickrProgressCallbackLayer.m
+//  MCFlickrPullToRefresh
 //
 //  Created by Chengyin on 16/3/21.
 //  Copyright © 2016年 Chengyin. All rights reserved.
 //
 
-#import "FlickrProgressCallbackLayer.h"
+#import "MCFlickrProgressCallbackLayer.h"
 
-@implementation FlickrProgressCallbackLayer
+@implementation MCFlickrProgressCallbackLayer
 - (id)initWithLayer:(id)layer
 {
     self = [super initWithLayer:layer];
     if (self)
     {
-        if ([layer isKindOfClass:[FlickrProgressCallbackLayer class]])
+        if ([layer isKindOfClass:[MCFlickrProgressCallbackLayer class]])
         {
-            FlickrProgressCallbackLayer *otherLayer = (FlickrProgressCallbackLayer *)layer;
+            MCFlickrProgressCallbackLayer *otherLayer = (MCFlickrProgressCallbackLayer *)layer;
             self.progress = otherLayer.progress;
             self.callbackDelegate = otherLayer.callbackDelegate;
         }
@@ -24,7 +24,7 @@
     return self;
 }
 
-+ (BOOL)needsDisplayForKey:(NSString*)key
++ (BOOL)needsDisplayForKey:(NSString *)key
 {
     if ([key isEqualToString:@"progress"])
     {
