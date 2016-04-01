@@ -42,6 +42,12 @@
     [self setNeedsDisplay];
 }
 
+- (void)setFillColor:(UIColor *)fillColor
+{
+    _fillColor = fillColor;
+    [self setNeedsDisplay];
+}
+
 - (void)display
 {
     UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, 0);

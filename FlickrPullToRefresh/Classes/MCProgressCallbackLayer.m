@@ -1,22 +1,21 @@
 //
-//  MCFlickrProgressCallbackLayer.m
-//  MCFlickrPullToRefresh
+//  MCProgressCallbackLayer.m
 //
 //  Created by Chengyin on 16/3/21.
 //  Copyright © 2016年 Chengyin. All rights reserved.
 //
 
-#import "MCFlickrProgressCallbackLayer.h"
+#import "MCProgressCallbackLayer.h"
 
-@implementation MCFlickrProgressCallbackLayer
+@implementation MCProgressCallbackLayer
 - (id)initWithLayer:(id)layer
 {
     self = [super initWithLayer:layer];
     if (self)
     {
-        if ([layer isKindOfClass:[MCFlickrProgressCallbackLayer class]])
+        if ([layer isKindOfClass:[MCProgressCallbackLayer class]])
         {
-            MCFlickrProgressCallbackLayer *otherLayer = (MCFlickrProgressCallbackLayer *)layer;
+            MCProgressCallbackLayer *otherLayer = (MCProgressCallbackLayer *)layer;
             self.progress = otherLayer.progress;
             self.callbackDelegate = otherLayer.callbackDelegate;
         }

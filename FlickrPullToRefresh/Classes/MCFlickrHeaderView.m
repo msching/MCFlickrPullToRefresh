@@ -8,18 +8,18 @@
 
 #import "MCFlickrHeaderView.h"
 #import "MCFlickrDragIndicateLayer.h"
-#import "MCFlickrProgressCallbackLayer.h"
+#import "MCProgressCallbackLayer.h"
 
 static const CGFloat avatarSize = 50;
 static const CGFloat progressSize = 60;
 const NSTimeInterval MCFlickrRefreshAnimationDuration = 2.5;
 
-@interface MCFlickrHeaderView ()<MCFlickrProgressCallbackDelegate>
+@interface MCFlickrHeaderView ()<MCProgressLayerCallbackDelegate>
 {
 @private
     CALayer *_imageLayer;
     MCFlickrDragIndicateLayer *_dragIndicateLayer;
-    MCFlickrProgressCallbackLayer *_callbackLayer;
+    MCProgressCallbackLayer *_callbackLayer;
     UIActivityIndicatorView *_waitingView;
     
     BOOL _animating;
@@ -58,7 +58,7 @@ const NSTimeInterval MCFlickrRefreshAnimationDuration = 2.5;
         _waitingView.layer.position = CGPointMake(avatarSize / 2, avatarSize / 2);
         [_imageLayer addSublayer:_waitingView.layer];
         
-        _callbackLayer = [[MCFlickrProgressCallbackLayer alloc] init];
+        _callbackLayer = [[MCProgressCallbackLayer alloc] init];
         _callbackLayer.callbackDelegate = self;
         _callbackLayer.frame = CGRectMake(0, -1, 1, 1);
         [self.layer addSublayer:_callbackLayer];

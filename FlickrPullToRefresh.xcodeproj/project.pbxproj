@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DE7CAF2D1C9FA18D007857BA /* 1.gif in Resources */ = {isa = PBXBuildFile; fileRef = DE7CAF2C1C9FA18D007857BA /* 1.gif */; };
-		DE7CAF391C9FF893007857BA /* MCFlickrProgressCallbackLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = DE7CAF381C9FF893007857BA /* MCFlickrProgressCallbackLayer.m */; };
+		DE7CAF391C9FF893007857BA /* MCProgressCallbackLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = DE7CAF381C9FF893007857BA /* MCProgressCallbackLayer.m */; };
 		DE8387491C9A772100D5E58A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8387481C9A772100D5E58A /* main.m */; };
 		DE83874C1C9A772100D5E58A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DE83874B1C9A772100D5E58A /* AppDelegate.m */; };
 		DE83874E1C9A772100D5E58A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE83874D1C9A772100D5E58A /* Assets.xcassets */; };
@@ -21,8 +21,8 @@
 
 /* Begin PBXFileReference section */
 		DE7CAF2C1C9FA18D007857BA /* 1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 1.gif; sourceTree = "<group>"; };
-		DE7CAF371C9FF893007857BA /* MCFlickrProgressCallbackLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCFlickrProgressCallbackLayer.h; sourceTree = "<group>"; };
-		DE7CAF381C9FF893007857BA /* MCFlickrProgressCallbackLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCFlickrProgressCallbackLayer.m; sourceTree = "<group>"; };
+		DE7CAF371C9FF893007857BA /* MCProgressCallbackLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCProgressCallbackLayer.h; sourceTree = "<group>"; };
+		DE7CAF381C9FF893007857BA /* MCProgressCallbackLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCProgressCallbackLayer.m; sourceTree = "<group>"; };
 		DE8387441C9A772100D5E58A /* FlickrPullToRefresh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickrPullToRefresh.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE8387481C9A772100D5E58A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DE83874A1C9A772100D5E58A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -99,8 +99,8 @@
 				DE8387761C9AA63300D5E58A /* MCFlickrHeaderView.m */,
 				DE8387771C9AA63300D5E58A /* MCFlickrDragIndicateLayer.h */,
 				DE8387781C9AA63300D5E58A /* MCFlickrDragIndicateLayer.m */,
-				DE7CAF371C9FF893007857BA /* MCFlickrProgressCallbackLayer.h */,
-				DE7CAF381C9FF893007857BA /* MCFlickrProgressCallbackLayer.m */,
+				DE7CAF371C9FF893007857BA /* MCProgressCallbackLayer.h */,
+				DE7CAF381C9FF893007857BA /* MCProgressCallbackLayer.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -178,7 +178,7 @@
 			files = (
 				DE83877C1C9AA63300D5E58A /* MCFlickrDragIndicateLayer.m in Sources */,
 				DE83877B1C9AA63300D5E58A /* MCFlickrHeaderView.m in Sources */,
-				DE7CAF391C9FF893007857BA /* MCFlickrProgressCallbackLayer.m in Sources */,
+				DE7CAF391C9FF893007857BA /* MCProgressCallbackLayer.m in Sources */,
 				DE83875D1C9A77FD00D5E58A /* ViewController.m in Sources */,
 				DE83874C1C9A772100D5E58A /* AppDelegate.m in Sources */,
 				DE8387491C9A772100D5E58A /* main.m in Sources */,
